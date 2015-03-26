@@ -1,0 +1,47 @@
+<!--单例模式 javascript-->
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			var Book = function(title, author, genre, pageCount, publisherID, ISBN) {
+				this.title = title;
+				this.author = author;
+				this.genre = genre;
+				this.pageCount = pageCount;
+				this.publisherID = publisherID;
+				this.ISBN = ISBN;
+			};
+			
+			/* Book工厂 单例 */
+			var BookFactory = (function() {
+				var existingBooks = {};
+				return {
+					createBook: function(title, author, genre, pageCount, publisherID, ISBN) {
+						/*查找之前是否创建*/
+						var existingBook = existingBooks[ISBN];
+						if (existingBook) {
+							return existingBook;
+						} else {
+							/* 如果没有，就创建一个，然后保存*/
+							var book = new Book(title, author, genre, pageCount, publisherID, ISBN);
+							existingBooks[ISBN] = book;
+							return book;
+						}
+					}
+				}
+			})();
+			
+			var book1 = BookFactory["createBook"](1,2,3,4,5,111);//先注册ISBN＝1的book
+			console.log(book1.title);//111
+			var book2 = BookFactory["createBook"](1,2,3,4,5,123);//继续注册ISBN＝1的book 单title为123
+			console.log(book2.title);//111
+		</script>
+	</body>
+
+</html>
