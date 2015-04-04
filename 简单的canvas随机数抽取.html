@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>RandomTool</title>
+		<style type="text/css">
+			html {
+				font-size: 20px;
+			}
+			body {
+				background-color: black;
+			}
+			.myButton {
+				-moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
+				-webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
+				box-shadow: inset 0px 1px 0px 0px #ffffff;
+				background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf));
+				background: -moz-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+				background: -webkit-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+				background: -o-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+				background: -ms-linear-gradient(top, #ededed 5%, #dfdfdf 100%);
+				background: linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
+				filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf', GradientType=0);
+				background-color: #ededed;
+				-moz-border-radius: 6px;
+				-webkit-border-radius: 6px;
+				border-radius: 6px;
+				border: 1px solid #dcdcdc;
+				display: inline-block;
+				cursor: pointer;
+				color: #777777;
+				font-family: arial;
+				font-size: 30px;
+				font-weight: bold;
+				padding: 6px 24px;
+				text-decoration: blink;
+				text-shadow: 0px 1px 0px #ffffff;
+			}
+			.myButton:hover {
+				background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed));
+				background: -moz-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+				background: -webkit-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+				background: -o-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+				background: -ms-linear-gradient(top, #dfdfdf 5%, #ededed 100%);
+				background: linear-gradient(to bottom, #dfdfdf 5%, #ededed 100%);
+				filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed', GradientType=0);
+				background-color: #dfdfdf;
+			}
+			.myButton:active {
+				position: relative;
+				top: 1px;
+			}
+			canvas {
+				display: block;
+				margin: auto;
+			}
+		</style>
+	</head>
+
+	<body style="text-align: center;">
+		<!--<div width="500px" style="width:500px;margin:0 auto;">-->
+		<canvas id="canvas" width="500px" height="400px"></canvas>
+		<!--</div>-->
+
+		<br />
+		<button id="random" class="myButton">抽</button>
+		<script type="text/javascript">
+			var but = document.getElementById("random");
+			var canvas = document.getElementById("canvas");
+			var context = canvas.getContext('2d');
+			var width = canvas.width;
+			var height = canvas.height;
+			var times = 0;
+			but.addEventListener('click', function(event) {
+				event.stopPropagation();
+				if (canvas != null) {
+					time1 = setInterval('randomNum()', 50);
+				}
+			});
+
+			function randomNum() {
+				++times;
+				context.clearRect(0, 0, width, height);
+				context.fillStyle = '#FFFFFF';
+				context.font = 'bold 150px 微软雅黑';
+				var num = parseInt(Math.random() * 150 + 20);
+				var wlen = (width-context.measureText(num+'').width)/2;
+//				var vlen = (height-context.measureText(num+'').height)/2+context.measureText(num+'').height;
+				context.fillText(num, wlen, 250);
+				if (times >= 20) {
+					clearInterval(time1);
+					times = 0;
+				}
+			};
+		</script>
+	</body>
+
+</html>
